@@ -4,6 +4,14 @@ from django.urls import reverse
 
 # Create your models here.
 
+class Status(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     title = models.CharField(max_length = 128)
     subtitle = models.CharField(max_length = 256)
@@ -13,6 +21,10 @@ class Post(models.Model):
     )
     body = models.TextField()
     created_on = models.DateField(auto_now_add= True)
+    status = models.ForeignKey(
+        Status,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.title
